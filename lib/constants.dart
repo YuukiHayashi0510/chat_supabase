@@ -6,9 +6,6 @@ abstract class Initializer {
   static Future<void> init() async {
     await Future.wait([
       (() async {
-        await dotenv.load(fileName: '.env');
-      })(),
-      (() async {
         await Supabase.initialize(
           url: dotenv.get('SUPABASE_URL'),
           anonKey: dotenv.get('SUPABASE_ANON_KEY'),
