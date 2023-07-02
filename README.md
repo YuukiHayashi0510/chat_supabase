@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+[使用物](https://zenn.dev/dshukertjr/books/flutter-supabase-chat)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
