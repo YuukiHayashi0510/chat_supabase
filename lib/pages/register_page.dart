@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat_app/pages/chat_page/index.dart';
 import 'package:my_chat_app/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:my_chat_app/constants.dart';
@@ -35,9 +36,8 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await supabase.auth.signUp(
           email: email, password: password, data: {'username': username});
-      // TODO: チャットページ実装後に下記コードを追加
-      // Navigator.of(context)
-      //     .pushAndRemoveUntil(ChatPage.route(), (route) => false);
+      Navigator.of(context)
+          .pushAndRemoveUntil(ChatPage.route(), (route) => false);
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
