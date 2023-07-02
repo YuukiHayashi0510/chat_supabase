@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:my_chat_app/pages/register_page.dart';
+import 'package:my_chat_app/pages/splash_page.dart';
 
 import 'constants.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'チャットアプリ',
-      home: RegisterPage(),
+      home: SplashPage(),
     );
   }
 }
