@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat_app/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:my_chat_app/constants.dart';
 
@@ -23,6 +24,26 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
+
+  Future<void> _signUp() async {
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) return;
+
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    final username = _usernameController.text;
+    try {
+      await supabase.auth.signUp(
+          email: email, password: password, data: {'username': username});
+      // TODO: チャットページ実装後に下記コードを追加
+      // Navigator.of(context)
+      //     .pushAndRemoveUntil(ChatPage.route(), (route) => false);
+    } on AuthException catch (error) {
+      context.showErrorSnackBar(message: error.message);
+    } catch (error) {
+      context.showErrorSnackBar(message: unexpectedErrorMessage);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
             formSpacer,
             TextButton(
               onPressed: () {
-                // TODO: ログインページが実装できたらコメントを外す
-                // Navigator.of(context).push(LoginPage.route());
+                Navigator.of(context).push(LoginPage.route());
               },
               child: const Text('すでにアカウントをお持ちの方はこちら'),
             )
@@ -90,25 +110,5 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-  }
-
-  Future<void> _signUp() async {
-    final isValid = _formKey.currentState!.validate();
-    if (!isValid) return;
-
-    final email = _emailController.text;
-    final password = _passwordController.text;
-    final username = _usernameController.text;
-    try {
-      await supabase.auth.signUp(
-          email: email, password: password, data: {'username': username});
-      // TODO: チャットページ実装後に下記コードを追加
-      // Navigator.of(context)
-      //     .pushAndRemoveUntil(ChatPage.route(), (route) => false);
-    } on AuthException catch (error) {
-      context.showErrorSnackBar(message: error.message);
-    } catch (error) {
-      context.showErrorSnackBar(message: unexpectedErrorMessage);
-    }
   }
 }
